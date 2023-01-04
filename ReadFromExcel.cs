@@ -5,16 +5,21 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace JatinChadha
+namespace ExcelDataReaderUsingLibrary
 {
+    
     class Program
     {
+        //https://github.com/ExcelDataReader/ExcelDataReader
         static List<string> list = new List<string>();
-        static string input = @"path\Input.txt";
-        static string output = @"path\Output.txt";
-        static string FinalEmails = @"path\FinalEmails.txt";
+        static string input = @"C:\Users\Prashant\Downloads\New folder\ReadTestFile\Input.txt";
+        static string output = @"C:\Users\Prashant\Downloads\New folder\ReadTestFile\Output.txt";
+        static string FinalEmails = @"C:\Users\Prashant\Downloads\New folder\ReadTestFile\FinalEmails.txt";
+        
+        static string excelPath = @"C:\Users\Prashant\Downloads\New folder\ReadTestFileEmail.xlsx";
+        
         static char[] seperator = new char[] { ' ', ',', '&', ';' ,'>' ,':' ,'"' };
-        static string excelPath = @"path\Email.xlsx";
+        
         static void Main()
         {
             Function();
