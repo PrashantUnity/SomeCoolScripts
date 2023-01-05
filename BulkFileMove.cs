@@ -9,11 +9,8 @@ namespace ForGeneral
         {
             try
             {
-                // setting path 
                 string destinationDirectory = @"C:\Users\priya\OneDrive\Desktop\desti\";
                 string sourceDirectory = @"C:\Users\priya\OneDrive\Desktop\source";
-
-                // getting all subdirectory of sourceDirectory
                 string[] dirs = Directory.GetDirectories(sourceDirectory, "*", SearchOption.TopDirectoryOnly);
                 
 
@@ -24,8 +21,7 @@ namespace ForGeneral
 
                     if (Files.Length == 0)
                         continue;
-
-                    // Moving each file one by one
+                    // you can do lots of other operation files
                     foreach (string file in Files)
                     {
                         Console.WriteLine($"Currently Moving {file}");
