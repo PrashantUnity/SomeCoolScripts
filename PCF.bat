@@ -1,45 +1,109 @@
 @echo off
-mkdir PCF
-cd PCF
-mkdir MyApp
-cd MyApp
+echo ---------------------------------------------------------------------------------
+echo variables name list/ You can it as you like
+set ParentDir="PCF"
+set AppName="AppName"
+set nameSpaceName="SampleNameSpace"
+set initName="SampleComponent"
+set pubName="Samples"
+set pubPrefix="samples"
+set SolutionsPath="Solutions"
+echo ----------------------------------------------- 
+echo Project is in this Format
+echo Parent Directory : %ParentDir%
+echo Application Name : %AppName%
+echo App Namespace    : %nameSpaceName%
+echo Name             : %initName%
+echo Publisher Name   : %pubName%
+echo Publisher Prefix : %pubPrefix%
+echo -----------------------------------------------
+mkdir %ParentDir%
+cd %ParentDir%
+mkdir %AppName%
+cd %AppName%
+set buildPath=%cd%
+echo ---------------------------------------------------------------------------------
 
-call pac install latest
+call pac install latest 
+echo ---------------------------------------------------------------------------------
 
 echo "Project Creation Started"
-call pac pcf init --namespace SampleNameSpace --name SampleComponent --template field
-
+call pac pcf init --namespace %nameSpaceName% --name %initName% --template field
+ 
+echo ---------------------------------------------------------------------------------
 echo "Running npm install Command" 
 call npm install 
+echo ---------------------------------------------------------------------------------
 
 Echo "Running npm install react react-dom Command"
 call npm install react react-dom  
-
+ 
+echo ---------------------------------------------------------------------------------
 Echo "Running "npm install @types/react --save-dev" Command"
 call npm install @types/react --save-dev 
-
+ 
+echo ---------------------------------------------------------------------------------
 Echo "Opening Vs Code"
 call code .
-
-mkdir solution
-cd solution
+Echo "Running run refresh command"
+call npm run refreshTypes
+ 
+echo ---------------------------------------------------------------------------------
+Echo "Running run build command"
+call npm run build
+start cmd.exe /k "npm run start"
+echo ---------------------------------------------------------------------------------
+mkdir %SolutionsPath%
+cd %SolutionsPath%
 
 Echo "Adding Solution File to solution  Folder"
-set pubName="PubName"
-set pubPrefix="pubpre"
+
 call pac solution init --publisher-name %pubName%  --publisher-prefix %pubPrefix%
 
+echo ---------------------------------------------------------------------------------
 set path=%cd%
 echo "Adding Solution reference to %path%"
-echo " from Now on Bhagwan Bharose" 
-call pac solution add-reference --path %path% 
+ 
+echo ---------------------------------------------------------------------------------
 
-cd..
-Echo "Project Building With MsBuild"
-call msbuild  
-
+::call pac solution add-reference --path %path% 
+::call pac solution add-reference --path .. 
+start cmd.exe /k "call pac solution add-reference --path .."
+echo "add reference part done"
+echo ---------------------------------------------------------------------------------
+echo +++++++++++++++++++++++++++++++++++++
+echo +++++++++++++++++++++++++++++++++++++
+echo +++++++++++++++++++++++++++++++++++++
+echo +++++++++++++++++++++++++++++++++++++
+echo ++++"From Now on Bhagwan Bharose"++++
+echo +++++++++++++++++++++++++++++++++++++
+echo +++++++++++++++++++++++++++++++++++++
+echo +++++++++++++++++++++++++++++++++++++
+echo +++++++++++++++++++++++++++++++++++++
+Echo "Project Building With MsBuild" 
+cd.. 
+::call msbuild /t:build /restore 
+msbuild /t:build /restore 
+ 
+echo ---------------------------------------------------------------------------------
 Echo "Project Building With dotnet Build"
-call dotnet build  
+::call dotnet build  
+dotnet build  
+ 
+echo ---------------------------------------------------------------------------------
+echo "Running msbuild command again For Release mode"
+call msbuild/property:configuration=Release
+echo ---------------------------------------------------------------------------------
+echo Some of the Command may have not worked
+echo try to execute it mannually 
 
-echo "Batch Script Finished"
+echo ----------------------------------------------- 
+echo Project is in this Format
+echo Parent Directory : %ParentDir%
+echo Application Name : %AppName%
+echo App Namespace    : %nameSpaceName%
+echo Name             : %initName%
+echo Publisher Name   : %pubName%
+echo Publisher Prefix : %pubPrefix%
+echo ----------------------------------------------- 
 pause 
