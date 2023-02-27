@@ -8,6 +8,10 @@ set initName="SampleComponent"
 set pubName="Samples"
 set pubPrefix="samples"
 set SolutionsPath="Solutions"
+:: for setting enviroment if ms build is not working Change According to your installed app in pc 
+:: be Carefull here if Problem persist google it
+set msbuildPath="C:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Current\Bin\"
+
 echo ----------------------------------------------- 
 echo Project is in this Format
 echo Parent Directory : %ParentDir%
@@ -45,12 +49,15 @@ call npm install @types/react --save-dev
 echo ---------------------------------------------------------------------------------
 Echo "Opening Vs Code"
 call code .
+echo ---------------------------------------------------------------------------------
 Echo "Running run refresh command"
 call npm run refreshTypes
- 
+echo ---------------------------------------------------------------------------------
 echo ---------------------------------------------------------------------------------
 Echo "Running run build command"
 call npm run build
+echo ---------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------
 start cmd.exe /k "npm run start"
 echo ---------------------------------------------------------------------------------
 mkdir %SolutionsPath%
@@ -61,14 +68,12 @@ Echo "Adding Solution File to solution  Folder"
 call pac solution init --publisher-name %pubName%  --publisher-prefix %pubPrefix%
 
 echo ---------------------------------------------------------------------------------
-set path=%cd%
-echo "Adding Solution reference to %path%"
- 
-echo ---------------------------------------------------------------------------------
-
+set pathSolution=%cd%
+echo "Adding Solution reference to %pathSolution%" 
+cd %pathSolution%
 ::call pac solution add-reference --path %path% 
 ::call pac solution add-reference --path .. 
-start cmd.exe /k "call pac solution add-reference --path %path%\.."
+call pac solution add-reference --path %pathSolution%
 echo "add reference part done"
 echo ---------------------------------------------------------------------------------
 echo +++++++++++++++++++++++++++++++++++++
@@ -80,35 +85,42 @@ echo +++++++++++++++++++++++++++++++++++++
 echo +++++++++++++++++++++++++++++++++++++
 echo +++++++++++++++++++++++++++++++++++++
 echo +++++++++++++++++++++++++++++++++++++
+echo ---------------------------------------------------------------------------------
+echo Changing Enviroment variables path
+call setx msbuild %msbuildPath%
+echo ---------------------------------------------------------------------------------
 Echo "Project Building With MsBuild"  
-::call msbuild /t:build /restore 
-msbuild /t:build /restore 
+call msbuild /t:build /restore 
+::msbuild /t:build /restore 
  
 echo ---------------------------------------------------------------------------------
 Echo "Project Building With dotnet Build"
 ::call dotnet build  
-dotnet build  
- 
+dotnet build   
 echo ---------------------------------------------------------------------------------
-echo "Running msbuild command again For Release mode"
-call msbuild/property:configuration=Release
+::echo "Running msbuild command again For Release mode"
+::call msbuild /property:configuration=Release
 echo ---------------------------------------------------------------------------------
-echo Some of the Command may have not worked
-
-
-echo ----------------------------------------------- 
+echo Some of the Command may have not worked 
+echo ---------------------------------------------------------------------------------
 echo Project is in this Format
 echo Parent Directory : %ParentDir%
 echo Application Name : %AppName%
 echo App Namespace    : %nameSpaceName%
 echo Name             : %initName%
 echo Publisher Name   : %pubName%
-echo Publisher Prefix : %pubPrefix%
-echo ----------------------------------------------- 
+echo Publisher Prefix : %pubPrefix% 
+echo ---------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------
+echo %pathSolution%
 echo try to execute it mannually in vs code 
-echo cd %SolutionsPath%
+echo %SolutionsPath%
 echo pac solution add-reference --path ..
+echo msbuild /t:build /restore 
 echo dotnet build
 echo msbuild
-
+echo ---------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------
 pause
