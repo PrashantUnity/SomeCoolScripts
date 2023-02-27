@@ -1,6 +1,6 @@
 @echo off
 echo ---------------------------------------------------------------------------------
-echo variables name list/ You can it as you like
+echo variables name list/ You can name it as per yout requirement
 set ParentDir="PCF"
 set AppName="AppName"
 set nameSpaceName="SampleNameSpace"
