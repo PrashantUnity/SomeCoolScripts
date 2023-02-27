@@ -101,7 +101,6 @@ echo ---------------------------------------------------------------------------
 ::echo "Running msbuild command again For Release mode"
 ::call msbuild /property:configuration=Release
 echo ---------------------------------------------------------------------------------
-echo Some of the Command may have not worked 
 echo ---------------------------------------------------------------------------------
 echo Project is in this Format
 echo Parent Directory : %ParentDir%
@@ -114,6 +113,7 @@ echo ---------------------------------------------------------------------------
 echo ---------------------------------------------------------------------------------
 echo ---------------------------------------------------------------------------------
 echo %pathSolution%
+echo Some of the Command may have not worked 
 echo try to execute it mannually in vs code 
 echo %SolutionsPath%
 echo pac solution add-reference --path ..
