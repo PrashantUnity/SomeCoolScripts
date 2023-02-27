@@ -68,7 +68,7 @@ echo ---------------------------------------------------------------------------
 
 ::call pac solution add-reference --path %path% 
 ::call pac solution add-reference --path .. 
-start cmd.exe /k "call pac solution add-reference --path .."
+start cmd.exe /k "call pac solution add-reference --path %path%\.."
 echo "add reference part done"
 echo ---------------------------------------------------------------------------------
 echo +++++++++++++++++++++++++++++++++++++
@@ -80,8 +80,7 @@ echo +++++++++++++++++++++++++++++++++++++
 echo +++++++++++++++++++++++++++++++++++++
 echo +++++++++++++++++++++++++++++++++++++
 echo +++++++++++++++++++++++++++++++++++++
-Echo "Project Building With MsBuild" 
-cd.. 
+Echo "Project Building With MsBuild"  
 ::call msbuild /t:build /restore 
 msbuild /t:build /restore 
  
@@ -95,7 +94,7 @@ echo "Running msbuild command again For Release mode"
 call msbuild/property:configuration=Release
 echo ---------------------------------------------------------------------------------
 echo Some of the Command may have not worked
-echo try to execute it mannually 
+
 
 echo ----------------------------------------------- 
 echo Project is in this Format
@@ -106,4 +105,10 @@ echo Name             : %initName%
 echo Publisher Name   : %pubName%
 echo Publisher Prefix : %pubPrefix%
 echo ----------------------------------------------- 
-pause 
+echo try to execute it mannually in vs code 
+echo cd %SolutionsPath%
+echo pac solution add-reference --path ..
+echo dotnet build
+echo msbuild
+
+pause
