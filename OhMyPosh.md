@@ -18,7 +18,7 @@
     User => AppData => Local\Programs\oh-my-posh\themes\atomic.omp.json"
 Copy Full path replace "pathoftheme" with your selected Choice of themes
 
-### Your teminal might be appering in blocky this is because Nerd Font is not installed in pc
+### Your teminal might be appering in blocky, because of Missing Nerd Font in pc
 ### go to [Nerd Font Website](https://www.nerdfonts.com/font-downloads) and download any font of you like
 ---
 
