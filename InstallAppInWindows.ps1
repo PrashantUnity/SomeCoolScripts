@@ -12,6 +12,7 @@ winget install -e --id Insomnia.Insomnia
 winget install -e --id dbeaver.dbeaver
 winget install -e --id OpenJS.NodeJS
 winget install -e --id Docker.DockerDesktop
+winget install -e --id Discord.Discord
 winget install -e --id Mozilla.Firefox
 winget install -e --id Google.Chrome
 winget install -e --id Notepad++.Notepad++
