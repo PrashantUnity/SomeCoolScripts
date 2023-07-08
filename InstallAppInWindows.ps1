@@ -41,6 +41,8 @@ winget install -e --id ProtonTechnologies.ProtonVPN
 winget install -e --id RevoUninstaller.RevoUninstaller
 winget install -e --id GlassWire.GlassWire
 winget install -e --id VideoLAN.VLC
+winget install -e --id GIMP.GIMP
+winget install -e --id KDE.Krita
 
 # Personal Choice
 winget install -e --id JanDeDobbeleer.OhMyPosh
