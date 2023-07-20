@@ -12,7 +12,14 @@ void ReadAllFilles(string path)
     {
         if(item.EndsWith(".pdf"))
         {   
-            Extract(item,Directory.GetParent(item).FullName,Path.GetFileNameWithoutExtension(item));
+            try
+            {
+                Extract(item, Directory.GetParent(item).FullName, Path.GetFileNameWithoutExtension(item));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message); 
+            }
             break;
         }
     }
