@@ -1,3 +1,7 @@
+// requirement
+// NuGet\Install-Package Ghostscript.NET
+// https://ghostscript.com/releases/gsdnld.html
+
 using Ghostscript.NET;
 using Ghostscript.NET.Rasterizer;
 using System.Drawing.Imaging;
