@@ -66,7 +66,7 @@ public class BinaryTree
 }
 /*
 this can be visualise in .Net Interactive tools using mermaid
-
+can be viewed here https://github.com/PrashantUnity/SomeCoolScripts/blob/main/Screenshot%202023-08-27%20193737.png
 flowchart TD
     431048-->286678-->241295-->220590-->172319-->leaf0
     172319-->leaf1
