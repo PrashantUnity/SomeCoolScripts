@@ -7,8 +7,6 @@ winget install -e --id Microsoft.VisualStudio.2022.Community
 winget install -e --id Microsoft.SQLServer.2019.Developer
 winget install -e --id Microsoft.SQLServerManagementStudio
 winget install -e --id Unity.UnityHub
-winget install -e --id JetBrains.Rider.EAP
-winget install -e --id JetBrains.CLion.EAP
 winget install -e --id JetBrains.PyCharm.Community
 winget install -e --id LINQPad.LINQPad.7
 winget install -e --id SQLite.SQLite
