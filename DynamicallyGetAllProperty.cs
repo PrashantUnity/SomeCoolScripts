@@ -93,6 +93,11 @@ public class Program
     Images              System.Collections.Generic.List`1[System.String]
     Specification       Submission#4+Specification
   */
+
+  // now that you have gone through rough patch 
+  // here is twoLine Solution
+  var propertiesValue = specification.GetType().GetProperties().Select(x=>x.GetValue(specification).ToString()).ToList();
+  var propertiesName  = typeof(Specification).GetProperties().Select(x=>x.Name.ToString()).ToList();
 }
 // Define a property.
 public class Product
