@@ -1,6 +1,7 @@
 // requirement
 // NuGet\Install-Package Ghostscript.NET
 // https://ghostscript.com/releases/gsdnld.html
+// Bear in mind this .Net FrameWork Code Not Intended for .Net Core Or Other Version
 
 using Ghostscript.NET;
 using Ghostscript.NET.Rasterizer;
