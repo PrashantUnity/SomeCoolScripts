@@ -25,8 +25,10 @@
 
 ## for rest Service you have to dig depper
 
+```csharp
 var username = "prashantunity"; 
-var path = $"https://api.github.com/users/{username}/events";
+var int i=1; // iterate i to get more data
+var path = $"https://api.github.com/users/{username}/events?page={i}&per_page=100";
 
 HttpClient client = new HttpClient(); 
 
@@ -34,3 +36,4 @@ client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductIn
 client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json")); 
 
 var myJsonResponse = await client.GetAsync(path); 
+```
