@@ -21,6 +21,25 @@
   }
 }
 ```
+```
+query ContributionsView($username: String!, $from: DateTime!, $to: DateTime!) {
+  user(login: $username) {
+    name
+    contributionsCollection(from: $from, to: $to) {
+      contributionCalendar {
+        weeks {
+          contributionDays {
+            date
+            color
+            contributionCount
+            weekday
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 
 ## for rest Service you have to dig depper
