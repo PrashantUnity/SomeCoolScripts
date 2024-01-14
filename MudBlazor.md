@@ -38,3 +38,41 @@
     }
 }
 ```
+
+## Matrix Code Snippet
+```razor
+<MudButton OnClick="ButtonOnClick">Generate</MudButton> 
+
+<MudPaper Class="d-flex flex-column flex-grow-1 gap-1" Elevation="0">
+    @foreach(var item in ls)
+    {
+        <MudPaper Class="d-flex flex-row flex-grow-1 gap-1" Elevation="0">
+            @foreach(var point in item)
+            {
+                <MudPaper Class="mud-theme-success" Width="64px" Height="64px"/> 
+            }
+            
+        </MudPaper>
+    } 
+</MudPaper>
+
+@code {
+    
+    int n = 8;
+    List<List<string>> ls = new();
+    void ButtonOnClick()
+    {
+        ls = new();
+
+        for(var i=0;i<n;i++)
+        {
+            var temp = new List<string>();
+            for(var j=0; j<n; j++)
+            {
+                temp.Add($"{i}:{j}");
+            }
+            ls.Add(temp);
+        }
+    }
+}
+```
