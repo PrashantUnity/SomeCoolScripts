@@ -76,3 +76,8 @@
     }
 }
 ```
+
+## String Interpolation inside Razer
+```razor
+<MudPaper Class="@($"mud-theme-{point.NodeColor}")" Width="64px" Height="64px" />
+```
