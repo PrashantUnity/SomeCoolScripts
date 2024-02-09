@@ -81,3 +81,42 @@
 ```razor
 <MudPaper Class="@($"mud-theme-{point.NodeColor}")" Width="64px" Height="64px" />
 ```
+## Mud Blazor Upload Image And Preview
+```razor
+@using System.IO
+<MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+    <ButtonTemplate>
+        <MudFab HtmlTag="label"
+                Color="Color.Secondary"
+                Icon="@Icons.Material.Filled.Image"
+                Label="Load picture"
+                for="@context.Id" />
+    </ButtonTemplate>
+</MudFileUpload>
+
+@if(ImageUri!="")
+{
+    <MudImage Src="@ImageUri" Width="400" Height="400" /> 
+}
+
+@code {
+
+    string ImageUri="";
+    private async Task UploadFiles(IBrowserFile file)
+    { 
+        var image = await file.RequestImageFileAsync("image/png", 600, 600);
+
+        using Stream imageStream = image.OpenReadStream(1024 * 1024 * 10);
+        
+        using MemoryStream ms = new();
+        //copy imageStream to Memory stream
+        await imageStream.CopyToAsync(ms);
+
+        //convert stream to base64
+        ImageUri = $"data:image/png;base64,{Convert.ToBase64String(ms.ToArray())}";
+        StateHasChanged();
+        //TODO upload the files to the server
+    }
+}
+
+```
