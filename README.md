@@ -34,7 +34,4 @@ if not exist "%~n0.exe" (
 endlocal & exit /b %errorlevel%
 
 */
-```
-* Above batch script is stolen from stackoverflow 
-[link here](https://stackoverflow.com/questions/553143/compiling-executing-a-c-sharp-source-file-in-command-prompt)
-**swear** i have copy code from here but, currently i can't find it😈😈.
+``` 
