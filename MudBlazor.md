@@ -120,3 +120,23 @@
 }
 
 ```
+
+## Painc Version Of Jaavascript
+```
+@inject IJSRuntime JSRuntime;
+
+<MudButton OnClick="Panic">Panic</MudButton>
+<MudButton OnClick="Cool">Cool Version</MudButton>
+
+@code {
+    string url ="www.google.com";
+    async Task Panic()
+    {
+        await JSRuntime.InvokeAsync<object>("open", url, "_blank");
+    }
+    async Task Cool()
+    {
+        await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+    }
+}
+```
