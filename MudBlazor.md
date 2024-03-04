@@ -140,3 +140,46 @@
     }
 }
 ```
+## How To Use Render Fragment In Code Block
+
+> CodeBlock Razor Componet
+```razor
+<pre class="line-numbers"><code class="@language">@SourceCode</code></pre>
+@code {
+    [Inject]
+    public IJSRuntime jSRuntime { get; set; }
+
+    [Parameter]
+    public RenderFragment SourceCode { get; set;}
+
+    [Parameter]
+    public Language ProgrammingLanguage { get; set; }
+
+    string language = "language-csharp";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await jSRuntime.InvokeVoidAsync("initializePrism");
+        }
+        language = "language-"+ Enum.GetName(typeof(Language), ProgrammingLanguage);
+    }
+
+}
+```
+> Use Of the Code Block
+
+```razor
+<CodeBlock>
+    <SourceCode> // Initialisation Of Prism js
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    if (firstRender)
+    {
+        await jSRuntime.InvokeVoidAsync("initializePrism");
+    }
+}
+    </SourceCode>
+</CodeBlock>
+```
