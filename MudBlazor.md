@@ -122,7 +122,7 @@
 ```
 
 ## Painc Version Of Jaavascript
-```
+```razor
 @inject IJSRuntime JSRuntime;
 
 <MudButton OnClick="Panic">Panic</MudButton>
