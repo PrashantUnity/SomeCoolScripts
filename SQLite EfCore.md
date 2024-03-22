@@ -260,7 +260,7 @@ public class UserGeneration
                     {
                         var todo = new ToDo
                         {
-                            Id = new Guid(),
+                            Id = Guid.NewGuid(),
                             Description = Faker.Lorem.Paragraph(1),
                             ChallengeId = challengeEntity.Entity.Id
                         };
