@@ -79,25 +79,45 @@ public class Repository : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Challenge> Challenges { get; set; }
     public DbSet<ToDo> ToDos { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Seed Users
-        modelBuilder.Entity<User>().HasData(
-            new User { Id = Guid.NewGuid(), UserName = "User1", Image = GetDefaultImage() },
-            new User { Id = Guid.NewGuid(), UserName = "User2", Image = GetDefaultImage() }
-        );
+        #region Seed Users
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            UserName = "Default",
+            Image = GetDefaultImage(),
+        };
+        var chlng = new Challenge
+        {
+            Id = Guid.NewGuid(),
+            Name = "Streak Visitors",
+            DayCount = 7,
+            StartDate = DateTime.Now,
+            UserId = user.Id
+        };
+        var todoOne = new ToDo
+        {
+            Id = Guid.NewGuid(),
+            Description = "Task 1",
+            ChallengeId = chlng.Id
+        };
+        var todoTwo = new ToDo
+        {
+            Id = Guid.NewGuid(),
+            Description = "Task 2",
+            ChallengeId = chlng.Id
+        };
+        #endregion
+
+        modelBuilder.Entity<User>().HasData(user);
 
         // Seed Challenges
-        modelBuilder.Entity<Challenge>().HasData(
-            new Challenge { Id = Guid.NewGuid(), Name = "Challenge 1", DayCount = 30, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(30), UserId = Guid.NewGuid() },
-            new Challenge { Id = Guid.NewGuid(), Name = "Challenge 2", DayCount = 60, StartDate = DateTime.Now, EndDate = DateTime.Now.AddDays(60), UserId = Guid.NewGuid() }
-        );
+        modelBuilder.Entity<Challenge>().HasData(chlng);
 
         // Seed ToDos
-        modelBuilder.Entity<ToDo>().HasData(
-            new ToDo { Id = Guid.NewGuid(), Description = "ToDo 1", IsCompleted = false, CompletionDate = DateTime.Now, ChallengeId = Guid.NewGuid() },
-            new ToDo { Id = Guid.NewGuid(), Description = "ToDo 2", IsCompleted = false, CompletionDate = DateTime.Now, ChallengeId = Guid.NewGuid() }
-        );
+        modelBuilder.Entity<ToDo>().HasData(todoOne,todoTwo);
 
         base.OnModelCreating(modelBuilder);
     }
