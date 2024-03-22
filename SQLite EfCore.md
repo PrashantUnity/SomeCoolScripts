@@ -293,3 +293,12 @@ public class UserGeneration
     }
 }
 ```
+
+## This Rerlated To Blazor Specific
+
+```cs
+var connectionString = "Data Source=mydatabase.db";
+ 
+builder.Services.AddDbContext<Repository>(options =>
+ options.UseSqlite(connectionString));
+```
