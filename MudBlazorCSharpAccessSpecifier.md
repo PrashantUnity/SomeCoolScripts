@@ -1,5 +1,6 @@
 # Razor Code For visual
 
+> https://try.mudblazor.com/snippet/caQIuIaccBcQieOy
 ```razor
 <MudPaper Class="d-flex flex-column flex-grow-1 gap-1" Elevation="0"> 
     <MudPaper Class="d-flex flex-row flex-grow-1 gap-1" Elevation="0">
