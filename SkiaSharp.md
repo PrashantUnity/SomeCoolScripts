@@ -4,8 +4,12 @@ User Of Skia Sharp In Blazor WebAssenmbly
 @using SkiaSharp
 @using SkiaSharp.Views.Blazor
 
-<button @onclick="ButtonClicked">Redraw Image</button>
-<SKCanvasView @ref="canvasReference" OnPaintSurface="@OnPaintSurface"/>
+<button @onclick="ButtonClicked">Redraw Image</button> 
+<SKCanvasView 
+    @ref="canvasReference"
+    OnPaintSurface="@OnPaintSurface"
+    style="@($"height: {1920}px; width: {1080}px;")"
+    IgnorePixelScaling=true />
 
 @code
 {
