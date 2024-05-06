@@ -1,4 +1,23 @@
-# Code Snippet for Mud Blazor
+
+ # Code Snippet for Mud Blazor
+
+ ## Center grid
+ ```razor
+<MudContainer Class="center-container">
+    
+</MudContainer>
+
+<style>
+    .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    
+</style>
+```
 
 
 ##  Simple implementation of Pagination 
