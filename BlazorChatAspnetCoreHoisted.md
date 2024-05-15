@@ -127,3 +127,7 @@ else
     bool IsConnected => connection.State == HubConnectionState.Connected;
 }
 ```
+> Client Side
+```powershell
+Install-Package Microsoft.AspNetCore.SignalR.Client
+```
