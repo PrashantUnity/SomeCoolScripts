@@ -12,10 +12,10 @@
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
-  <startup>  
-  </startup>
-  <runtime> 
-  </runtime>
+	<startup>  
+	</startup>
+	<runtime> 
+	</runtime>
 	<appSettings> 
 		<!-- Serilog Config-->  
 		<add key="LoggingPath" value="LogSerilog.txt" /> 
