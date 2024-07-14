@@ -2,3 +2,9 @@
 ```sh
 explorer .
 ```
+
+## Get Partition Style Of Disk
+
+```sh
+Get-Disk
+```
