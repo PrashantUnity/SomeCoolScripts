@@ -12,10 +12,17 @@ public class HtmlTreeNode
 
 public static class HtmlParser
 {
-    private static HashSet<string> voidTags = new HashSet<string>
+    private static HashSet<string> voidTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
-        "area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"
+        // HTML5 void elements
+        "area", "base", "br", "col", "embed", "hr", "img", "input", 
+        "link", "meta", "param", "source", "track", "wbr",
+        
+        // Legacy/obsolete void elements
+        "basefont", "bgsound", "frame", "isindex", "keygen", 
+        "menuitem", "spacer", "colgroup", "command"
     };
+
 
     public static HtmlTreeNode Parse(string html)
     {
@@ -51,6 +58,12 @@ public static class HtmlParser
                 {
                     if (stack.Count > 0)
                         currentParent = stack.Pop();
+
+                    // Check if we've finished processing first root element
+                    if (currentParent == root && root.Children.Count > 0)
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -73,11 +86,26 @@ public static class HtmlParser
 
                     currentParent.Children.Add(node);
 
+                    // Check if we're adding first root element
+                    if (currentParent == root && root.Children.Count == 1)
+                    {
+                        if (isSelfClosing || voidTags.Contains(tagName.ToLowerInvariant()))
+                        {
+                            break;
+                        }
+                    }
+
                     if (!isSelfClosing)
                     {
                         stack.Push(currentParent);
                         currentParent = node;
                     }
+                }
+
+                // Final check after tag processing
+                if (currentParent == root && root.Children.Count > 0)
+                {
+                    break;
                 }
             }
             else
@@ -91,12 +119,6 @@ public static class HtmlParser
 
                 index = nextTagIndex;
             }
-        }
-
-        foreach (var child in root.Children)
-        {
-            if (child.TagName.Equals("html", StringComparison.OrdinalIgnoreCase))
-                return child;
         }
 
         return root.Children.Count > 0 ? root.Children[0] : null;
@@ -172,9 +194,7 @@ public static class HtmlParser
     }
     public static string Serialize(HtmlTreeNode node)
     {
-        if (node == null)
-            return string.Empty;
-
+        if (node == null) return string.Empty;
         StringBuilder sb = new StringBuilder();
         SerializeNode(node, sb);
         return sb.ToString();
@@ -182,50 +202,65 @@ public static class HtmlParser
 
     private static void SerializeNode(HtmlTreeNode node, StringBuilder sb)
     {
-        sb.Append('<').Append(node.TagName);
+        if (string.IsNullOrEmpty(node.TagName))
+        {
+            // Handle text nodes
+            sb.Append(node.InnerText);
+            return;
+        }
 
-        // Combine attributes, prioritizing class from Classes list
+        // Build opening tag
+        sb.Append('<').Append(node.TagName.ToLowerInvariant());
+
+        // Add attributes
         var attributes = new Dictionary<string, string>();
-
+        
+        // Merge class attributes
         if (node.Classes.Count > 0)
         {
             attributes["class"] = string.Join(" ", node.Classes);
         }
-
+        
         foreach (var attr in node.Attributes)
         {
-            if (!attr.Key.Equals("class", StringComparison.OrdinalIgnoreCase))
-            {
-                attributes[attr.Key] = attr.Value;
-            }
+            if (attr.Key.Equals("class", StringComparison.OrdinalIgnoreCase)) continue;
+            attributes[attr.Key] = attr.Value;
         }
 
         foreach (var attr in attributes)
         {
-            sb.Append(' ').Append(attr.Key);
-            if (attr.Value != "true") // Handle boolean attributes without values
+            sb.Append(' ').Append(attr.Key.ToLowerInvariant());
+            if (attr.Value != "true")
             {
-                sb.Append("=\"").Append(attr.Value).Append('"');
+                sb.Append("=\"")
+                  .Append(attr.Value.Replace("\"", "&quot;"))
+                  .Append('"');
             }
         }
 
-        bool isVoid = voidTags.Contains(node.TagName.ToLowerInvariant());
+        bool isVoid = voidTags.Contains(node.TagName);
+        bool hasChildren = node.Children.Count > 0;
+        bool hasContent = !string.IsNullOrWhiteSpace(node.InnerText);
+
+        // Handle void elements
         if (isVoid)
         {
             sb.Append(" />");
+            return;
         }
-        else
+
+        // Close opening tag
+        sb.Append('>');
+
+        // Add inner text and children
+        if (hasContent) sb.Append(node.InnerText);
+        foreach (var child in node.Children)
         {
-            sb.Append('>');
-            sb.Append(node.InnerText);
-
-            foreach (var child in node.Children)
-            {
-                SerializeNode(child, sb);
-            }
-
-            sb.Append("</").Append(node.TagName).Append('>');
+            SerializeNode(child, sb);
         }
+
+        // Add closing tag
+        sb.Append("</").Append(node.TagName.ToLowerInvariant()).Append('>');
     }
 }
 public class Program
